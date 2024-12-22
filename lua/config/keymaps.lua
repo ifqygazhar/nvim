@@ -25,3 +25,6 @@ vim.g.VM_maps = {
   ["Exit"] = "<Esc>",
 }
 vim.g.VM_maps["Complete"] = "<Tab>" -- Gunakan Tab untuk completion
+
+-- undotree
+vim.keymap.set("n", "<leader>uo", require("undotree").open, { noremap = true, silent = true })
