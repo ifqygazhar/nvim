@@ -19,6 +19,8 @@ return {
         " ", -- Menambahkan trigger untuk operator ternary
         "(", -- Trigger di dalam tanda kurung buka
         ")", -- Trigger di dalam tanda kurung tutup
+        "{",
+        "}",
       },
     }
 
