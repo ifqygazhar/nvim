@@ -28,7 +28,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stale version for plugins that support semver
   },
-  install = { colorscheme = { "catppuccin", "tokyonight", "habamax" } },
+  install = { colorscheme = { "gruvbox", "catppuccin", "tokyonight", "habamax" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
@@ -57,3 +57,4 @@ require("lspconfig").asm_lsp.setup({
   filetypes = { "asm", "s", "S" },
   root_dir = require("lspconfig").util.root_pattern("*.asm", ".git"),
 })
+-- vim.cmd.colorscheme("gruvbox")

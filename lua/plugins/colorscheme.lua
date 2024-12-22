@@ -40,3 +40,8 @@ return {
     },
   },
 }
+
+-- return {
+--   -- add gruvbox
+--   { "ellisonleao/gruvbox.nvim" },
+-- }
