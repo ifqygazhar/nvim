@@ -23,6 +23,8 @@ return {
         "}",
         ",", -- Tambahkan koma untuk trigger properties Widget
         "=", -- Tambahkan equals untuk assignment
+        "[",
+        "]",
       },
     }
 
