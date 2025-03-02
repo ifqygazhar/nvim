@@ -62,3 +62,43 @@ Open file on `lua/plugins/flutter_tools.lua` need change location of dart-debug-
             }
 
 ```
+
+# Need change for spesific operating system
+
+Open file on `lua/config/keymaps.lua` just comment and uncomment the keymaps you want to use
+
+```
+
+-- For MacOS
+map("n", "n", "nzzzv") -- perbaikan dari <n> menjadi n
+map("n", "N", "Nzzzv") -- perbaikan dari <N> menjadi N
+-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+-- Comment keymaps for macOS support
+-- macOS menggunakan Command+/ untuk comment
+vim.keymap.set("n", "<M-/>", function()
+  require("Comment.api").toggle.linewise.current()
+end, { noremap = true, silent = true })
+vim.keymap.set("x", "<M-/>", function()
+  local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+  vim.api.nvim_feedkeys(esc, "nx", false)
+  require("Comment.api").toggle.linewise(vim.fn.visualmode())
+end, { noremap = true, silent = true })
+
+-- For General Operating System
+-- map("n", "<n>", "nzzzv")
+-- map("n", "<N>", "Nzzzv")
+-- -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+-- vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+-- vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+-- vim.keymap.set("n", "<C-_>", function()
+--   require("Comment.api").toggle.linewise.current()
+-- end, { noremap = true, silent = true })
+-- vim.keymap.set("x", "<C-_>", function()
+--   local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+--   vim.api.nvim_feedkeys(esc, "nx", false)
+--   require("Comment.api").toggle.linewise(vim.fn.visualmode())
+-- end, { noremap = true, silent = true })
+```
