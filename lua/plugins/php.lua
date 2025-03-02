@@ -6,6 +6,7 @@ return {
     opts = {
       formatters_by_ft = {
         php = { "pint", "php_cs_fixer" },
+        blade = { "blade-formatter" },
       },
       formatters = {
         pint = {
@@ -16,6 +17,9 @@ return {
           env = {
             PHP_CS_FIXER_IGNORE_ENV = "1", -- Mengabaikan kebutuhan versi PHP
           },
+        },
+        ["blade-formatter"] = {
+          command = vim.fn.expand("~/.local/share/nvim/mason/bin/blade-formatter"),
         },
       },
       -- Tambahkan log untuk debugging
