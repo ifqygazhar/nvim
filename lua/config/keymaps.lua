@@ -52,3 +52,13 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true, silent = true })
 vim.keymap.set("n", "<C->", "<C-w>", { noremap = true, silent = true })
+
+-- FLutter Bloc
+vim.keymap.set("n", "<Leader>cfb", "<cmd>lua require('flutter-bloc').create_bloc()<cr>", {
+  desc = "[C]reate [F]lutter [B]loc",
+})
+
+-- Create Cubit quickly
+vim.keymap.set("n", "<Leader>cfc", "<cmd>lua require('flutter-bloc').create_cubit()<cr>", {
+  desc = "[C]reate [F]lutter [C]ubit",
+})

@@ -1,17 +1,19 @@
 return {
   {
-
     "akinsho/flutter-tools.nvim",
     lazy = false,
     keys = {
       { "<leader>rs", "<cmd>FlutterDevices<cr>", desc = "Show connected devices" },
       { "<leader>rr", "<cmd>FlutterRun<cr>", desc = "Run the current project" },
+      -- Tambahkan keybinding baru untuk run tanpa debugging
+      { "<leader>rn", "<cmd>FlutterRun --no-debug<cr>", desc = "Run without debugging" },
       { "<leader>re", "<cmd>FlutterEmulators<cr>", desc = "Show running emulators" },
       { "<leader>rR", "<cmd>FlutterReload<cr>", desc = "Reload the running project" },
       { "<leader>rt", "<cmd>FlutterRestart<cr>", desc = "Restart the current project" },
       { "<leader>rq", "<cmd>FlutterQuit<cr>", desc = "Ends a running session" },
       { "<leader>rl", "<cmd>FlutterLspRestart<cr>", desc = "Restart the dart lsp" },
-      { "<leader>rn", "<cmd>FlutterRename<cr>", desc = "Rename classes" },
+      -- Ubah keybinding rn menjadi rc karena rn sudah digunakan di atas
+      { "<leader>rc", "<cmd>FlutterRename<cr>", desc = "Rename classes" },
       { "<leader>rf", "<cmd>FlutterCommands<cr>", desc = "All Flutter commands" },
     },
     dependencies = {
@@ -22,22 +24,20 @@ return {
       require("flutter-tools").setup({
         -- (uncomment below line for windows only)
         -- flutter_path = "home/flutter/bin/flutter.bat",
-
         debugger = {
-          -- make these two params true to enable debug mode
-          enabled = true,
-          run_via_dap = true,
+          -- Ubah enabled menjadi false untuk menonaktifkan debugger secara default
+          enabled = false,
+          run_via_dap = false,
           register_configurations = function(_)
+            -- Konfigurasi DAP tetap ada untuk ketika Anda ingin menggunakan debugging
             require("dap").adapters.dart = {
               type = "executable",
-              command = vim.fn.expand("C:/Users/ifqy/AppData/Local/nvim-data/mason/bin/dart-debug-adapter.cmd"),
-              --command = "",
+              command = vim.fn.expand("~/.local/share/nvim/mason/bin/dart-debug-adapter"),
               args = { "flutter" },
               options = {
                 detached = false,
               },
             }
-
             require("dap").configurations.dart = {
               {
                 type = "dart",
@@ -49,47 +49,37 @@ return {
                 cwd = "${workspaceFolder}",
               },
             }
-            -- uncomment below line if you've launch.json file already in your vscode setup
-            -- require("dap.ext.vscode").load_launchjs()
           end,
         },
-        lsp = {
-          color = { -- show the derived colours for dart variables
-            enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-            background = true, -- highlight the background
-            background_color = nil, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
-            foreground = false, -- highlight the foreground
-            virtual_text = true, -- show the highlight using virtual text
-            virtual_text_str = "■", -- the virtual text character to highlight
-          },
+        -- Tambahkan konfigurasi untuk flutter run
+        flutter = {
+          -- Argumen default untuk perintah run
+          default_run_args = { "--no-debug" },
         },
-        -- widget_guides = {
-        --   enabled = true,
-        -- },
-        -- closing_tags = {
-        --   highlight = "ErrorMsg", -- highlight for the closing tag
-        --   prefix = ">", -- character to use for close tag e.g. > Widget
-        --   enabled = true, -- set to false to disable
-        -- },
         dev_log = {
-          -- toggle it when you run without DAP
+          -- Pastikan dev_log tetap enabled
           enabled = true,
           notify_errors = true,
           open_cmd = "tabedit",
         },
+        -- Bagian konfigurasi lainnya tetap sama
+        lsp = {
+          color = {
+            enabled = true,
+            background = true,
+            background_color = nil,
+            foreground = false,
+            virtual_text = true,
+            virtual_text_str = "■",
+          },
+        },
         settings = {
           showTodos = true,
           completeFunctionCalls = true,
-          renameFilesWithClasses = "prompt", -- "always"
+          renameFilesWithClasses = "prompt",
           enableSnippets = true,
-          updateImportsOnRename = true, -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
+          updateImportsOnRename = true,
         },
-        -- settings = {
-        --   analysisExcludedFolders = {
-        --     vim.fn.expand("/home/sifat/.pub-cache"),
-        --     vim.fn.expand("/home/sifat/flutter"),
-        --   },
-        -- },
       })
     end,
   },
